@@ -42,6 +42,9 @@ window.h5ile = {
         var elParent = document.getElementById(idParentElement);
         if (!elParent) throw new Error("h5ile: Invalid parent element");
 
+        // Based on:
+        // https://developer.mozilla.org/en/using_files_from_web_applications
+
         var elInput = document.createElement('input');
         elInput.setAttribute('type', 'file');
 
