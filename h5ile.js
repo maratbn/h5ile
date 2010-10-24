@@ -37,8 +37,19 @@ window.h5ile = {
      *  DOM element with the DOM id specified.
      *
      *  @param  idParentElement         DOM id of the parent element
+     *
+     *  @param  params                  JSON structure with file processing
+     *                                  parameters.
+     *
+     *          params.loadtext         Sub-field for text loading settings.
+     *
+     *          params.loadtext.onloadend
+     *                                  Callback function for when a file has
+     *                                  been loaded as regular text.
+     *                                  1st parameter:  'File' object read.
+     *                                  2nd parameter:  'FileReader' object.
      */
-    createVisibleFileInput: function(idParentElement) {
+    createVisibleFileInput: function(idParentElement, params) {
         var elParent = document.getElementById(idParentElement);
         if (!elParent) throw new Error("h5ile: Invalid parent element");
 
@@ -47,6 +58,33 @@ window.h5ile = {
 
         var elInput = document.createElement('input');
         elInput.setAttribute('type', 'file');
+
+        elInput.addEventListener('change', function() {
+                if (!this.files) {
+                    throw new Error("h5ile:  Expected 'FileList' object, but"
+                                    + " did not get any");
+                }
+
+                for (var i = 0; i < this.files.length; i++) {
+                    var file = this.files[i];
+                    if (!file) continue;
+
+                    var reader = new FileReader();
+
+                    if (params &&
+                        params.loadtext &&
+                        params.loadtext.onloadend) {
+
+                        reader.onabort = function() {
+                                alert("h5ile:  Aborted text loading of file '" + file.name + "'.");
+                            }
+                        reader.onloadend = function() {
+                                params.loadtext.onloadend(file, reader);
+                            }
+                        reader.readAsText(file);
+                    }
+                }
+            }, false);
 
         elParent.appendChild(elInput);
     }
