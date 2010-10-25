@@ -72,11 +72,11 @@ window.h5ile = {
                     var file = this.files[i];
                     if (!file) continue;
 
-                    var reader = new FileReader();
-
                     if (params &&
                         params.loadtext &&
                         params.loadtext.onloadend) {
+
+                        var reader = new FileReader();
 
                         reader.onabort = function() {
                                 alert("h5ile:  Aborted text loading of file '" + file.name + "'.");
