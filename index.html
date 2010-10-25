@@ -180,6 +180,32 @@
             </li>
             <li>
               <h4>
+                Simple demo text file viewer HTML markup:
+              </h4>
+<pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+  &lt;div style='display:none;' id='demo_container'&gt;
+    &lt;--
+      This div will initially be hidden from view, and only shown if the
+      browser supports HTML5 File API.
+    --&gt;
+    Visible file input:
+    &lt;span id='visible_file_input'&gt;&lt;/span&gt;
+    &lt;--
+      The h5ile toolkit will insert the visible HTML form field file input tag
+      into the span above.
+    --&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    Loaded file displays here:
+    &lt;pre
+       id='loaded_file_contents'
+       style='border: solid 1px black; overflow: auto;'&gt;
+    &lt;/pre&gt;
+  &lt;/div&gt;
+</pre>
+            </li>
+            <li>
+              <h4>
                 To check if the browser supports HTML5 File API and render
                 the appropriate widgets only in that case:
               </h4>
