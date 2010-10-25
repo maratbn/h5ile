@@ -48,6 +48,8 @@ window.h5ile = {
      *                                  been loaded as regular text.
      *                                  1st parameter:  'File' object read.
      *                                  2nd parameter:  'FileReader' object.
+     *
+     *  @returns the created tag.
      */
     createVisibleFileInput: function(idParentElement, params) {
         var elParent = document.getElementById(idParentElement);
@@ -95,6 +97,8 @@ window.h5ile = {
         }
 
         elParent.appendChild(elInput);
+
+        return elInput;
     },
 
     /**
