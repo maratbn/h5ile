@@ -206,6 +206,48 @@
             </li>
             <li>
               <h4>
+                JavaScript code for basic text file loading and display via
+                the h5ile toolkit:
+              </h4>
+<pre dojoType='dcodeview.DCodeView' class='dcodeview'>
+  &lt;!-- This script tag can go right after the HTML markup above. --&gt;
+  &lt;script type='text/javascript'&gt;
+      // &lt;!--
+
+      // Check if this browser supports the HTML5 File API:
+      if (h5ile.isFileAPISupported()) {
+          // Have browser support.
+
+          // This makes the demo container visible.  Recommend doing this via
+          // a JavaScript toolkit such as Dojo or jQuery in real life.
+          document.getElementById('demo_container').setAttribute('style', "");
+
+          // This function call inserts the visible HTML form field file input
+          // tag into the span with HTML id 'visible_file_input', and loads
+          // the text file:
+          h5ile.createVisibleFileInput(
+                'visible_file_input',
+                {
+                    loadtext: {
+                        onloadend: function(file, file_reader) {
+
+                            // Callback function receives HTML5 File API
+                            // 'File' and 'FileReader' objects associated with
+                            // the file and containing the file contents.
+
+                            var elContents = document.getElementById(
+                                                  'loaded_file_contents');
+                            elContents.textContent = file_reader.result;
+                        }
+                    }
+                });
+      }
+      // --&gt;
+  &lt;/script&gt;
+</pre>
+            </li>
+            <li>
+              <h4>
                 To check if the browser supports HTML5 File API and render
                 the appropriate widgets only in that case:
               </h4>
