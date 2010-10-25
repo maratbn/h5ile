@@ -246,56 +246,6 @@
   &lt;/script&gt;
 </pre>
             </li>
-            <li>
-              <h4>
-                To check if the browser supports HTML5 File API and render
-                the appropriate widgets only in that case:
-              </h4>
-<pre dojoType='dcodeview.DCodeView' class='dcodeview'>
-  &lt;script type='text/javascript'&gt;
-      // &lt;!--
-      if (h5ile.isFileAPISupported()) {
-          document.writeln(
-            "&lt;div&gt;",
-              "Visible file input:",
-              "&lt;span id='visible_file_input'&gt;&lt;/span&gt;",
-            "&lt;/div&gt;",
-            "&lt;div&gt;",
-              "Loaded file displays here:",
-              "&lt;pre",
-                " id='loaded_file_contents'",
-                " style='border: solid 1px black; overflow: auto;'&gt;",
-              "&lt;/pre&gt;",
-            "&lt;/div&gt;");
-
-            h5ile.createVisibleFileInput(
-                'visible_file_input',
-                {
-                    loadtext: {
-                        onloadend: function(file, file_reader) {
-                            var elContents = document.getElementById(
-                                                  'loaded_file_contents');
-                            elContents.textContent = file_reader.result;
-                        }
-                    }
-                });
-
-      } else {
-          document.writeln(
-            "&lt;p&gt;",
-              "HTML5 File API is not supported by this browser.",
-            "&lt;/p&gt;");
-      }
-      // --&gt;
-  &lt;/script&gt;
-  &lt;noscript&gt;
-    &lt;span&gt;
-      JavaScript support not detected -- it is either disabled or
-      unavailable in your browser.
-    &lt;/span&gt;
-  &lt;/noscript&gt;
-</pre>
-            </li>
           </ul>
         </div>
       </li>
