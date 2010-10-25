@@ -26,6 +26,7 @@
 
     <!-- Including the h5ile toolkit JavaScript file: -->
     <script type='text/javascript' src='h5ile.js'></script>
+
     <style type='text/css'>
         .h5ile_support {
             font-family:                    sans-serif;
@@ -166,7 +167,22 @@
           Example code:
         </h3>
         <div class='section_content'>
-          <!-- The DCodeView widget will overlay on top of this <pre> tag: -->
+          <ul>
+            <li>
+              <h4>
+                To include the h5ile toolkit JavaScript file on your page:
+              </h4>
+              <!-- The DCodeView widget will overlay on top of this <pre> tag: -->
+<pre dojoType='dcodeview.DCodeView' font_size='8pt' class='dcodeview'>
+  &lt;!-- Including the h5ile toolkit JavaScript file: --&gt;
+  &lt;script type='text/javascript' src='h5ile.js'&gt;&lt;/script&gt;
+</pre>
+            </li>
+            <li>
+              <h4>
+                To check if the browser supports HTML5 File API and render
+                the appropriate widgets only in that case:
+              </h4>
 <pre dojoType='dcodeview.DCodeView' font_size='8pt' class='dcodeview'>
   &lt;script type='text/javascript'&gt;
       // &lt;!--
@@ -211,6 +227,8 @@
     &lt;/span&gt;
   &lt;/noscript&gt;
 </pre>
+            </li>
+          </ul>
         </div>
       </li>
     </ul>
