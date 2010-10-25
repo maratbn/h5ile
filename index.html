@@ -95,6 +95,31 @@
           <script type='text/javascript'>
               // <!--
               if (h5ile.isFileAPISupported()) {
+                  document.writeln(
+                    "<div>",
+                      "Visible file input:",
+                      "<span id='visible_file_input'></span>",
+                    "</div>",
+                    "<div>",
+                      "Loaded file displays here:",
+                      "<pre",
+                        " id='loaded_file_contents'",
+                        " style='border: solid 1px black; overflow: auto;'>",
+                      "</pre>",
+                    "</div>");
+
+                    h5ile.createVisibleFileInput(
+                        'visible_file_input',
+                        {
+                            loadtext: {
+                                onloadend: function(file, file_reader) {
+                                    var elContents = document.getElementById(
+                                                          'loaded_file_contents');
+                                    elContents.textContent = file_reader.result;
+                                }
+                            }
+                        });
+
               } else {
                   document.writeln(
                     "<p>",
@@ -109,28 +134,6 @@
               unavailable in your browser.
             </span>
           </noscript>
-          <div>
-            Visible file input:
-            <span id='visible_file_input'></span>
-          </div>
-          <div>
-            Loaded file displays here:
-            <pre id='loaded_file_contents' style='border: solid 1px black; overflow: auto;'>
-            </pre>
-          </div>
-          <script type='text/javascript'>
-              h5ile.createVisibleFileInput(
-                  'visible_file_input',
-                  {
-                      loadtext: {
-                          onloadend: function(file, file_reader) {
-                              var elContents = document.getElementById(
-                                                    'loaded_file_contents');
-                              elContents.textContent = file_reader.result;
-                          }
-                      }
-                  });
-          </script>
         </div>
       </li>
     </ul>
