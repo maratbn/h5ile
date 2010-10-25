@@ -59,7 +59,7 @@ window.h5ile = {
         var elInput = document.createElement('input');
         elInput.setAttribute('type', 'file');
 
-        elInput.addEventListener('change', function() {
+        var _processChange = function() {
                 if (!this.files) {
                     throw new Error("h5ile:  Expected 'FileList' object, but"
                                     + " did not get any");
@@ -84,7 +84,15 @@ window.h5ile = {
                         reader.readAsText(file);
                     }
                 }
-            }, false);
+            }
+
+        if (elInput.addEventListener) {
+            elInput.addEventListener('change', _processChange, false);
+        } else if (elInput.attachEvent) {
+            elInput.attachEvent('change', _processChange);
+        } else {
+            throw new Error("h5ile:  Expected either 'addEventListener' or 'attachEvent'.");
+        }
 
         elParent.appendChild(elInput);
     },
