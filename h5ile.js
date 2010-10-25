@@ -33,8 +33,9 @@
 
 window.h5ile = {
     /**
-     *  Creates a visible HTML form field file input tag, appending it as a
-     *  child to the DOM element with the DOM id specified.
+     *  Creates a visible HTML form field file input tag, prepares it to load
+     *  files, and appends it as a child to the DOM element with the DOM id
+     *  specified.
      *
      *  @param  idParentElement         DOM id of the parent element
      *
