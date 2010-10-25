@@ -87,5 +87,12 @@ window.h5ile = {
             }, false);
 
         elParent.appendChild(elInput);
+    },
+
+    /**
+     *  @returns  Boolean true if the platform supports HTML 5 File API.
+     */
+    isFileAPISupported: function() {
+        return window.File && window.FileReader ? true : false;
     }
 }
