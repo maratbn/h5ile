@@ -68,28 +68,35 @@
           </p>
         </div>
       </li>
-    </ul>
-    <div>
-      Visible file input:
-      <span id='visible_file_input'></span>
-    </div>
-    <div>
-      Loaded file displays here:
-      <pre id='loaded_file_contents' style='border: solid 1px black'>
-      </pre>
-    </div>
-    <script type='text/javascript'>
-        h5ile.createVisibleFileInput(
-            'visible_file_input',
-            {
-                loadtext: {
-                    onloadend: function(file, file_reader) {
-                        var elContents = document.getElementById(
+      <li>
+        <h3>
+          Test HTML5 File API capability with h5ile toolkit in your browser:
+        </h3>
+        <div class='section_content'>
+          <div>
+            Visible file input:
+            <span id='visible_file_input'></span>
+          </div>
+          <div>
+            Loaded file displays here:
+            <pre id='loaded_file_contents' style='border: solid 1px black'>
+            </pre>
+          </div>
+          <script type='text/javascript'>
+              h5ile.createVisibleFileInput(
+                  'visible_file_input',
+                  {
+                      loadtext: {
+                          onloadend: function(file, file_reader) {
+                              var elContents = document.getElementById(
                                                     'loaded_file_contents');
-                        elContents.textContent = file_reader.result;
-                    }
-                }
-            });
-    </script>
+                              elContents.textContent = file_reader.result;
+                          }
+                      }
+                  });
+          </script>
+        </div>
+      </li>
+    </ul>
   </body>
 </html>
