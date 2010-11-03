@@ -56,11 +56,46 @@ window.h5ile = {
         var elParent = document.getElementById(idParentElement);
         if (!elParent) throw new Error("h5ile: Invalid parent element");
 
-        // Based on:
-        // https://developer.mozilla.org/en/using_files_from_web_applications
-
         var elInput = document.createElement('input');
         elInput.setAttribute('type', 'file');
+
+        this.prepareFileInput(elInput, params);
+
+        elParent.appendChild(elInput);
+
+        return elInput;
+    },
+
+    /**
+     *  @returns  Boolean true if the platform supports HTML 5 File API.
+     */
+    isFileAPISupported: function() {
+        return window.File && window.FileReader ? true : false;
+    },
+
+    /**
+     *  Prepares the HTML form field file input tag element specified to load
+     *  files.
+     *
+     *  @param  elInput                 Reference to the form field file input
+     *                                  tag element to prepare.
+     *
+     *  @param  params                  JSON structure with file processing
+     *                                  parameters.
+     *
+     *          params.loadtext         Sub-field for text loading settings.
+     *
+     *          params.loadtext.onloadend
+     *                                  Callback function for when a file has
+     *                                  been loaded as regular text.
+     *                                  1st parameter:  'File' object read.
+     *                                  2nd parameter:  'FileReader' object.
+     *
+     */
+    prepareFileInput: function(elInput, params) {
+
+        // Based on:
+        // https://developer.mozilla.org/en/using_files_from_web_applications
 
         var _processChange = function() {
                 if (!this.files) {
@@ -96,16 +131,5 @@ window.h5ile = {
         } else {
             throw new Error("h5ile:  Expected either 'addEventListener' or 'attachEvent'.");
         }
-
-        elParent.appendChild(elInput);
-
-        return elInput;
-    },
-
-    /**
-     *  @returns  Boolean true if the platform supports HTML 5 File API.
-     */
-    isFileAPISupported: function() {
-        return window.File && window.FileReader ? true : false;
     }
 }
