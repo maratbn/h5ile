@@ -131,5 +131,79 @@ window.h5ile = {
         } else {
             throw new Error("h5ile:  Expected either 'addEventListener' or 'attachEvent'.");
         }
+    },
+
+    /**
+     *  Reads text from the file specified, and splits it into lines.
+     *
+     *  @returns Object with info on lines.
+     */
+    splitIntoLines: function(file_reader) {
+        var arrSplit =  file_reader &&
+                        file_reader.result &&
+                        file_reader.result.split(/(\r\n|\r|\n)/);
+        // The 'arrSplit' variable is an array where the line text and the
+        // line delimiters are at separate indices.  Need to process that into
+        // another array where the line delimiters are appended to the ends of
+        // their associated lines.
+        var arrLines = [];
+        var strLine = "";
+        for (var i = 0; i < arrSplit.length; i ++) {
+            strLine += arrSplit[i];
+            if (strLine.match(/\r\n|\r|\n/)) {
+                arrLines.push(strLine);
+                strLine = "";
+            }
+        }
+        if (strLine) arrLines.push(strLine);
+
+        function _getLine(indexLine) {
+                return  arrLines &&
+                        arrLines.length > indexLine &&
+                        arrLines[indexLine] || "";
+            }
+
+        return {
+                /**
+                 *  Total number of characters in the text file.
+                 */
+                totalChars: file_reader &&
+                            file_reader.result &&
+                            file_reader.result.length || 0,
+
+                /**
+                 *  Total number of lines in the text file.
+                 *
+                 *  The text file is stored line by line rather than in a
+                 *  single string, as otherwise a huge file in a huge string
+                 *  would overwhelm the browser's JavaScript engine.
+                 */
+                totalLines: arrLines && arrLines.length || 0,
+
+                /**
+                 *  Returns a single line out of the text file, including the
+                 *  line termination carriage return character sequence.
+                 *
+                 *  @param  indexLine       Number  0-based index of the line.
+                 */
+                getLine: function(indexLine) {
+                        return _getLine(indexLine);
+                    },
+
+                /**
+                 *  Returns a single line out of the text file, stripped of
+                 *  the whitespace bounding it.
+                 *
+                 *  @param  indexLine       Number  0-based index of the line.
+                 */
+                getLineStripped: function(indexLine) {
+                        var strLine = _getLine(indexLine);
+                        arrBreakdownForLine = strLine &&
+                                                strLine.match(/^\s*(.+\S+)\s*$/);
+                        return arrBreakdownForLine &&
+                                arrBreakdownForLine.length == 2 &&
+                                arrBreakdownForLine[1] || null;
+                    }
+            }
     }
 }

@@ -27,6 +27,10 @@
     <!-- Including the h5ile toolkit JavaScript file: -->
     <script type='text/javascript' src='h5ile.js'></script>
 
+    <!-- Including TextFileView widget JavaScript file:
+         (This is a multi-line viewer widget not specific to h5ile) -->
+    <script type='text/javascript' src='text_file_view.js'></script>
+
     <style type='text/css'>
         .h5ile_support {
             font-family:                    sans-serif;
@@ -45,6 +49,16 @@
             margin:                         10px;
             width:                          620px;
         }
+
+        .h5ile_support .section_content .file_contents_container {
+            background-color:               #ffff77;
+            border:                         1px solid blue;
+            line-height:                    16px;
+            min-height:                     50px;
+            max-height:                     200px;
+            overflow:                       auto;
+        }
+
     </style>
   </head>
   <body class='h5ile_support'>
@@ -94,6 +108,11 @@
                 Allows loading of file data with a single call to a utility
                 function.
               </li>
+              <li>
+                Includes a utility method for splitting large text files into
+                separate lines with line separators still intact, as well as
+                into lines trimmed of whitespace.
+              </li>
             </ul>
           </p>
           <p>
@@ -126,13 +145,21 @@
                       "Visible file input:",
                       "<span id='visible_file_input'></span>",
                     "</div>",
+
                     "<div>",
-                      "Loaded file displays here:",
-                      "<pre",
-                        " id='loaded_file_contents'",
-                        " style='border: solid 1px black; overflow: auto;'>",
-                      "</pre>",
+                      "<span id='status'></span>",
+                    "</div>",
+                    "<div id='output' class='file_contents_container'>",
+                      "<div id='output_scrolling' style='position:relative'>",
+                        "<pre id='output_text' style='position:absolute;margin:0;'>",
+                          "<div style='color:#777777;margin:13px 23px 0px 23px;'>",
+                            "Loaded text file displays here...",
+                          "</div>",
+                        "</pre>",
+                      "</div>",
                     "</div>");
+
+                  var text_file_view = new TextFileView();
 
                     h5ile.createVisibleFileInput(
                         'visible_file_input',
@@ -141,7 +168,8 @@
                                 onloadend: function(file, file_reader) {
                                     var elContents = document.getElementById(
                                                           'loaded_file_contents');
-                                    elContents.textContent = file_reader.result;
+
+                                    text_file_view.displayTextFile(h5ile.splitIntoLines(file_reader));
                                 }
                             }
                         });
