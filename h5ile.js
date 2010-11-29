@@ -39,7 +39,9 @@ window.h5ile = {
      *  files, and appends it as a child to the DOM element with the DOM id
      *  specified.
      *
-     *  @param  idParentElement         DOM id of the parent element
+     *  @param  parent                  Either the parent DOM element to which
+     *                                  to append the new HTML form field file
+     *                                  input tag, or its DOM id.
      *
      *  @param  params                  JSON structure with file processing
      *                                  parameters.
@@ -52,18 +54,28 @@ window.h5ile = {
      *                                  1st parameter:  'File' object read.
      *                                  2nd parameter:  'FileReader' object.
      *
+     *          params.loadtext.onprogress
+     *                                  Callback function for the HTML5 File
+     *                                  API 'onprogress' event.
+     *                                  1st parameter:  'ProgressEvent'
+     *                                                              object.
+     *
      *  @returns the created tag.
      */
-    createVisibleFileInput: function(idParentElement, params) {
-        var elParent = document.getElementById(idParentElement);
-        if (!elParent) throw new Error("h5ile: Invalid parent element");
+    createVisibleFileInput: function(parent, params) {
+        if (!parent) throw new Error("h5ile: Expected parent element or id.");
+
+        if (!(parent instanceof HTMLElement))
+            parent = document.getElementById(parent);
+
+        if (!parent) throw new Error("h5ile: Invalid parent element");
 
         var elInput = document.createElement('input');
         elInput.setAttribute('type', 'file');
 
         this.prepareFileInput(elInput, params);
 
-        elParent.appendChild(elInput);
+        parent.appendChild(elInput);
 
         return elInput;
     },
@@ -93,6 +105,11 @@ window.h5ile = {
      *                                  1st parameter:  'File' object read.
      *                                  2nd parameter:  'FileReader' object.
      *
+     *          params.loadtext.onprogress
+     *                                  Callback function for the HTML5 File
+     *                                  API 'onprogress' event.
+     *                                  1st parameter:  'ProgressEvent'
+     *                                                              object.
      */
     prepareFileInput: function(elInput, params) {
 
@@ -126,12 +143,23 @@ window.h5ile = {
                                 _onError();
                             }
                         reader.onloadend = function() {
-                                params.loadtext.onloadend(file, reader);
+                                if (params.loadtext.onloadend) {
+                                    params.loadtext.onloadend(file, reader);
+                                }
+                            }
+                        reader.onprogress = function(progress_event) {
+                                if (params.loadtext.onprogress) {
+                                    params.loadtext.onprogress(
+                                                            progress_event);
+                                }
                             }
                         try {
                             reader.readAsText(file);
                         } catch (e) {
                             _onError();
+                            if (params.loadtext.onloadend) {
+                                params.loadtext.onloadend(null, null);
+                            }
                         }
                     }
                 }
