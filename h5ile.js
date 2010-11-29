@@ -113,15 +113,26 @@ window.h5ile = {
                         params.loadtext &&
                         params.loadtext.onloadend) {
 
+                        function _onError() {
+                            alert("h5ile:  Encountered error loading text file '" + file.name + "'.");
+                        }
+
                         var reader = new FileReader();
 
                         reader.onabort = function() {
                                 alert("h5ile:  Aborted text loading of file '" + file.name + "'.");
                             }
+                        reader.onerror = function() {
+                                _onError();
+                            }
                         reader.onloadend = function() {
                                 params.loadtext.onloadend(file, reader);
                             }
-                        reader.readAsText(file);
+                        try {
+                            reader.readAsText(file);
+                        } catch (e) {
+                            _onError();
+                        }
                     }
                 }
             }
