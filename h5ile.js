@@ -227,6 +227,22 @@ window.h5ile = {
                 getTotalTokensOnLine: function(indexLine) {
                         _insureTokenLineExists(indexLine);
                         return _arrLineTokens[indexLine].length;
+                    },
+
+                /**
+                 *  Returns a single non-whitespace token with the index
+                 *  specified on the line with the index specified.
+                 *
+                 *  @param  indexToken      Number  0-based index of the token
+                                                                on the line.
+                 *  @param  indexLine       Number  0-based index of the line.
+                 *
+                 *  Note that the token index is specified before the line
+                 *  index.
+                 */
+                getTokenOnLine: function(indexToken, indexLine) {
+                        _insureTokenLineExists(indexLine);
+                        return _arrLineTokens[indexLine][indexToken];
                     }
             }
     }
