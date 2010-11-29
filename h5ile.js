@@ -4,7 +4,7 @@
  *
  *  Module:         h5ile.js
  *
- *  Description:    JavaScript utility / helper library for HTML 5 File API
+ *  Description:    JavaScript helper utility library for the HTML5 File API
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
