@@ -1,4 +1,6 @@
 /**
+ *  h5ile JavaScript helper utility library for the HTML5 File API
+ *
  *  Copyright (c) 2010 Marat Nepomnyashy    maratbn@gmail
  *  All rights reserved.
  *
