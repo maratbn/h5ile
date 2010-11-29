@@ -126,13 +126,17 @@ window.h5ile = {
                                 _onError();
                             }
                         reader.onloadend = function() {
-                                params.loadtext.onloadend(file, reader);
+                                if (params.loadtext.onloadend) {
+                                    params.loadtext.onloadend(file, reader);
+                                }
                             }
                         try {
                             reader.readAsText(file);
                         } catch (e) {
                             _onError();
-                            params.loadtext.onloadend(null, null);
+                            if (params.loadtext.onloadend) {
+                                params.loadtext.onloadend(null, null);
+                            }
                         }
                     }
                 }
