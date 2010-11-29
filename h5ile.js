@@ -198,7 +198,7 @@ window.h5ile = {
                  */
                 getLineStripped: function(indexLine) {
                         var strLine = _getLine(indexLine);
-                        arrBreakdownForLine = strLine &&
+                        var arrBreakdownForLine = strLine &&
                                                 strLine.match(/^\s*(.+\S+)\s*$/);
                         return arrBreakdownForLine &&
                                 arrBreakdownForLine.length == 2 &&
