@@ -172,6 +172,15 @@ window.h5ile = {
                         arrBreakdownForLine[1] || null;
             }
 
+        var _arrLineTokens = [];
+
+        function _insureTokenLineExists(indexLine) {
+                if (_arrLineTokens[indexLine]) return;
+
+                var strLineStripped = _getLineStripped(indexLine);
+                _arrLineTokens[indexLine] = strLineStripped && strLineStripped.split(/\s/) || [];
+            }
+
         return {
                 /**
                  *  Total number of characters in the text file.
@@ -207,6 +216,17 @@ window.h5ile = {
                  */
                 getLineStripped: function(indexLine) {
                         return _getLineStripped(indexLine);
+                    },
+
+                /**
+                 *  Returns the total number of non-whitespace tokens on the
+                 *  line with the index specified.
+                 *
+                 *  @param  indexLine       Number  0-based index of the line.
+                 */
+                getTotalTokensOnLine: function(indexLine) {
+                        _insureTokenLineExists(indexLine);
+                        return _arrLineTokens[indexLine].length;
                     }
             }
     }
