@@ -132,6 +132,7 @@ window.h5ile = {
                             reader.readAsText(file);
                         } catch (e) {
                             _onError();
+                            params.loadtext.onloadend(null, null);
                         }
                     }
                 }
