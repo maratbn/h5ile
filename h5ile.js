@@ -163,6 +163,15 @@ window.h5ile = {
                         arrLines[indexLine] || "";
             }
 
+        function _getLineStripped(indexLine) {
+                var strLine = _getLine(indexLine);
+                var arrBreakdownForLine = strLine &&
+                                            strLine.match(/^\s*(.+\S+)\s*$/);
+                return arrBreakdownForLine &&
+                        arrBreakdownForLine.length == 2 &&
+                        arrBreakdownForLine[1] || null;
+            }
+
         return {
                 /**
                  *  Total number of characters in the text file.
@@ -197,12 +206,7 @@ window.h5ile = {
                  *  @param  indexLine       Number  0-based index of the line.
                  */
                 getLineStripped: function(indexLine) {
-                        var strLine = _getLine(indexLine);
-                        var arrBreakdownForLine = strLine &&
-                                                strLine.match(/^\s*(.+\S+)\s*$/);
-                        return arrBreakdownForLine &&
-                                arrBreakdownForLine.length == 2 &&
-                                arrBreakdownForLine[1] || null;
+                        return _getLineStripped(indexLine);
                     }
             }
     }
