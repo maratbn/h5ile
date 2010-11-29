@@ -52,6 +52,12 @@ window.h5ile = {
      *                                  1st parameter:  'File' object read.
      *                                  2nd parameter:  'FileReader' object.
      *
+     *          params.loadtext.onprogress
+     *                                  Callback function for the HTML5 File
+     *                                  API 'onprogress' event.
+     *                                  1st parameter:  'ProgressEvent'
+     *                                                              object.
+     *
      *  @returns the created tag.
      */
     createVisibleFileInput: function(idParentElement, params) {
@@ -93,6 +99,11 @@ window.h5ile = {
      *                                  1st parameter:  'File' object read.
      *                                  2nd parameter:  'FileReader' object.
      *
+     *          params.loadtext.onprogress
+     *                                  Callback function for the HTML5 File
+     *                                  API 'onprogress' event.
+     *                                  1st parameter:  'ProgressEvent'
+     *                                                              object.
      */
     prepareFileInput: function(elInput, params) {
 
@@ -128,6 +139,12 @@ window.h5ile = {
                         reader.onloadend = function() {
                                 if (params.loadtext.onloadend) {
                                     params.loadtext.onloadend(file, reader);
+                                }
+                            }
+                        reader.onprogress = function(progress_event) {
+                                if (params.loadtext.onprogress) {
+                                    params.loadtext.onprogress(
+                                                            progress_event);
                                 }
                             }
                         try {
