@@ -157,18 +157,18 @@
 
                   var text_file_view = new TextFileView();
 
-                    h5ile.createVisibleFileInput(
-                        'visible_file_input',
-                        {
-                            loadtext: {
-                                onloadend: function(file, file_reader) {
-                                    var elContents = document.getElementById(
-                                                          'loaded_file_contents');
+                  h5ile.createVisibleFileInput(
+                      'visible_file_input',
+                      {
+                          loadtext: {
+                              onloadend: function(file, file_reader) {
+                                  var elContents = document.getElementById(
+                                                        'loaded_file_contents');
 
-                                    text_file_view.displayTextFile(h5ile.splitIntoLines(file_reader));
-                                }
-                            }
-                        });
+                                  text_file_view.displayTextFile(h5ile.splitIntoLines(file_reader));
+                              }
+                          }
+                      });
 
               } else {
                   document.writeln(
